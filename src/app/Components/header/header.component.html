@@ -14,8 +14,11 @@
                 </li>
             </ul>
             <div class="d-flex">
-                <div class="w-100 my-auto mx-5 fs-4 text-decoration-underline text-dark">
-                    {{greating}}
+                <div *ngIf="greating!=''">
+                    <div class="alert py-2 alert-info  mx-5 my-auto" style="width:300px" role="alert">
+                        {{greating}}
+                    </div>
+
                 </div>
                 <input class=" form-control me-2" placeholder="Enter Your Name" [(ngModel)]="cstName">
                 <button class="btn btn-outline-success" type="submit" (click)="displayName()">Submit</button>

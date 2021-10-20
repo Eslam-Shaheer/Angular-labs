@@ -6,7 +6,7 @@ import { StoreInfo } from 'src/app/Models/store-info';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  cstName: string = 'asas';
+  cstName: string = '';
   Store: StoreInfo = {
     name: 'Pluto Store',
     logo: 'assets/download.png',
