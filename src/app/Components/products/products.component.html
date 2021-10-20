@@ -1,0 +1,25 @@
+<div class="container my-5">
+
+    <select class="form-select" aria-label="Default select example" [(ngModel)]="category"
+        (change)="selectedCategory()">
+        <option *ngFor="let category of categoriesList">
+            {{category.Name}}</option>
+    </select>
+    <div class=" py-5 d-flex flex-wrap justify-content-between">
+
+        <div *ngFor="let product of prdoductsList" class="card my-3" style="width: 15rem;">
+            <div *ngIf="product.CategoryID==selectedCategory()">
+                <img class="card-img-top mx-auto" src={{product?.ImgURL}} alt="Card image cap"
+                    style="width:13rem; height:15rem">
+                <div class="card-body">
+                    <p class="card-text">{{product?.Name}}</p>
+                    <p class="card-text">{{product?.Price | currency}}</p>
+                    <a class="btn btn-info w-100" href="#" role="button">Buy Now </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
