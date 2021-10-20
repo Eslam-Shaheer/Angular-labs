@@ -9,6 +9,11 @@ import { HomeComponent } from './Components/home/home.component';
 import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './Components/products/products.component';
 import { CommonModule } from '@angular/common';
+import { HighlightDirective } from './Components/Directive/highlight.directive';
+import { RoundedDirective } from './Directives/rounded.directive';
+import { CurrencyPipe } from './Pipes/currency.pipe';
+import { PersonalInfoPipe } from './Pipes/personal-info.pipe';
+import { CreditInfoPipe } from './Pipes/credit-info.pipe';
 
 @NgModule({
   declarations: [
@@ -17,6 +22,11 @@ import { CommonModule } from '@angular/common';
     FooterComponent,
     HomeComponent,
     ProductsComponent,
+    HighlightDirective,
+    RoundedDirective,
+    CurrencyPipe,
+    PersonalInfoPipe,
+    CreditInfoPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, CommonModule],
   providers: [],
