@@ -1,0 +1,36 @@
+<p class="card-text"><span class="text-info">Total Price: </span>{{totalOrderPrice |currencyTransform
+    |currency: "EGP":"symbol"}}</p>
+<div class=" py-5 d-flex flex-wrap justify-content-evenly">
+
+    <div [hidden]="show" *ngFor="let product of selectedCategory()" style="width: 15rem;">
+        <div *ngIf="product.Quantity!=0" class="card my-3 " appRounded
+            [ngClass]="product.Quantity==1?'bg-warning':'bg-white'">
+            <img class="card-img-top mx-3" src={{product?.ImgURL}} alt="Card image cap"
+                style="width:13rem; height:15rem">
+            <div class="card-body">
+                <p class="card-text"><span class="text-info">Name: </span> {{product?.Name}}</p>
+                <p class="card-text"><span class="text-info">Price: </span>{{product.Price |currencyTransform
+                    |currency: "EGP":"symbol"}}</p>
+                <p class="card-text"><span class="text-info">Available Quantity: </span> {{product?.Quantity}}</p>
+                <p class="card-text"><span class="text-info">Puplish Date: </span>{{myDate | date: 'dd-MM-yyyy'}}
+                </p>
+                <p class="card-text"><span class="text-info">Category ID: </span> {{product?.CategoryID}}</p>
+                <div class="form-outline my-2">
+                    <label class="form-label text-info" for="typeNumber">Quantity Needed:</label>
+
+                    <input type="number" id="typeNumber" min="0" class="form-control" #boughtCount />
+
+
+                </div>
+                <a class="btn btn-info w-100" href="#" role="button"
+                    (click)="calcTotalPrice(product, boughtCount.value)">Buy Now
+                </a>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div [hidden]="!show" class="alert py-2 alert-info  mx-auto my-auto" role="alert">
+            <p>{{greating}}</p>
+        </div>
+    </div>
+</div>
