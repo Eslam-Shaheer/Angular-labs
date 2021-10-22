@@ -1,6 +1,6 @@
 <div class="container-fluid ">
     <div class="row">
-        <aside class="col-3 my-4 h-100 position-relative">
+        <aside class="mx-0 col-3 my-0 h-100 position-relative">
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-light position-fixed " style="width: 280px;">
                 <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                     <svg class="bi me-2" width="40" height="32">
@@ -9,9 +9,9 @@
                     <span class="fs-4">Sidebar</span>
                 </a>
                 <hr>
-                <ul class="nav nav-pills flex-column mb-auto">
+                <ul class="nav nav-pills flex-column mb-auto my-0">
 
-                    <li class="nav-item" *ngFor="let elem of asideElem">
+                    <li class="nav-item my-1" *ngFor="let elem of asideElem">
                         <a href="#" class="nav-link" aria-current="page">
                             <svg class="bi me-2" width="16" height="16">
                                 <use xlink:href="#home" />
@@ -42,7 +42,7 @@
 
         </aside>
         <section class="col-8">
-            <app-products></app-products>
+            <app-category-search></app-category-search>
         </section>
     </div>
 </div>

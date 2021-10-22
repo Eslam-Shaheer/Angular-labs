@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/Models/product';
-import { Category } from 'src/app/Models/category';
-
+import { ShoppingCartItems } from 'src/app/Models/shopping-cart-items';
 @Component({
-  selector: 'app-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  selector: 'app-products-view',
+  templateUrl: './products-view.component.html',
+  styleUrls: ['./products-view.component.scss'],
 })
-export class ProductsComponent implements OnInit {
+export class ProductsViewComponent implements OnInit {
   myDate: Date = new Date();
   show: boolean = false;
-  prdoductsList: Product[];
-  categoriesList: Category[];
-  category: number = 0;
+  prdoductsList: Product[] = [];
+  @Input() sentCatIDFrmMaster: number = 0;
   greating: string = 'Thanks for purchasing from our Store';
+  @Output() totalPriceChanged: EventEmitter<number> =
+    new EventEmitter<number>();
+  totalOrderPrice: number = 0;
+  UserCartItems: Product[] = [];
+  @Output() shoppingCartItems: EventEmitter<any> = new EventEmitter<any>();
+
   selectedCategory(): any {
-    if (this.category) {
+    if (this.sentCatIDFrmMaster) {
       return this.prdoductsList.filter((item) => {
-        return item.CategoryID == this.category;
+        return item.CategoryID == this.sentCatIDFrmMaster;
       });
     } else {
       return this.prdoductsList;
@@ -28,22 +32,7 @@ export class ProductsComponent implements OnInit {
 
     // this.show = !this.show;
   }
-
   constructor() {
-    this.categoriesList = [
-      {
-        ID: 1,
-        Name: 'Iphone',
-      },
-      {
-        ID: 2,
-        Name: 'Xiaomi',
-      },
-      {
-        ID: 3,
-        Name: 'Huwaei',
-      },
-    ];
     this.prdoductsList = [
       {
         ID: 1,
@@ -121,4 +110,21 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+  calcTotalPrice(item: any, itemCount: any) {
+    this.totalOrderPrice += +item.Price * +itemCount;
+    this.totalPriceChanged.emit(this.totalOrderPrice);
+    for (let i = 0; i < itemCount; i++) {
+      this.UserCartItems.push(item);
+    }
+
+    console.log(this.UserCartItems);
+    this.shoppingCartItems.emit(this.UserCartItems);
+
+    if (item.Quantity < itemCount) {
+      alert('There is not enoght Quantity');
+    }
+    if (item.Quantity >= itemCount) {
+      item.Quantity -= itemCount;
+    }
+  }
 }

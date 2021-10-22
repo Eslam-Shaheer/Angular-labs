@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './Components/header/header.component';
@@ -12,8 +11,9 @@ import { CommonModule } from '@angular/common';
 import { HighlightDirective } from './Components/Directive/highlight.directive';
 import { RoundedDirective } from './Directives/rounded.directive';
 import { CurrencyPipe } from './Pipes/currency.pipe';
-import { PersonalInfoPipe } from './Pipes/personal-info.pipe';
-import { CreditInfoPipe } from './Pipes/credit-info.pipe';
+import { SearchComponent } from './Components/search/search.component';
+import { ProductsViewComponent } from './Components/ProductView/products-view/products-view.component';
+import { CategorySearchComponent } from './Components/ProductView/category-search/category-search.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +25,9 @@ import { CreditInfoPipe } from './Pipes/credit-info.pipe';
     HighlightDirective,
     RoundedDirective,
     CurrencyPipe,
-    PersonalInfoPipe,
-    CreditInfoPipe,
+    SearchComponent,
+    ProductsViewComponent,
+    CategorySearchComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, CommonModule],
   providers: [],

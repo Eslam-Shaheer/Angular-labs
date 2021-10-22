@@ -1,0 +1,52 @@
+<div class="container my-5">
+    <div class="d-flex align-items-center">
+        <select class="form-select" name="categoris" aria-label="Default select example" [(ngModel)]="selectedCategory">
+            <option *ngFor="let category of categoriesList" [value]="category.ID">
+                {{category.Name}}</option>
+        </select>
+        <button type="button" class="btn btn-light ms-3 p-1 " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <img style="width:30px"
+                src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-cart-supermarket-flatart-icons-flat-flatarticons.png" />
+        </button>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class=" py-5 d-flex flex-wrap justify-content-evenly">
+                        <div *ngFor="let product of cartItems" style="width: 10rem;">
+                            <div *ngIf="product.Quantity!=0" class="card my-3 " appRounded>
+                                <img class="card-img-top " src={{product?.ImgURL}} alt="Card image cap"
+                                    style="width:10rem; height:10rem">
+                                <div class="card-body">
+                                    <p class="card-text"><span class="text-info">Name: </span> {{product?.Name}}</p>
+                                    <p class="card-text"><span class="text-info">Price: </span>{{product.Price
+                                        |currencyTransform
+                                        |currency: "EGP":"symbol"}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Check Out</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <app-products-view [sentCatIDFrmMaster]="selectedCategory" (shoppingCartItems)="onShoppingCartChanged($event)"
+        (totalPriceChanged)="onTotalPriceChanged($event)">
+    </app-products-view>
+
+
+
+</div>
