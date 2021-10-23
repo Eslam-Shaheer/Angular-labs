@@ -12,11 +12,12 @@ export class ProductsViewComponent implements OnInit {
   prdoductsList: Product[] = [];
   @Input() sentCatIDFrmMaster: number = 0;
   greating: string = 'Thanks for purchasing from our Store';
-  @Output() totalPriceChanged: EventEmitter<number> =
-    new EventEmitter<number>();
   totalOrderPrice: number = 0;
   UserCartItems: Product[] = [];
-  @Output() shoppingCartItems: EventEmitter<any> = new EventEmitter<any>();
+  @Output() addItemToshoppingCartItems: EventEmitter<ShoppingCartItems> =
+    new EventEmitter<ShoppingCartItems>();
+
+  productNeededCount: number = 0;
 
   selectedCategory(): any {
     if (this.sentCatIDFrmMaster) {
@@ -91,7 +92,7 @@ export class ProductsViewComponent implements OnInit {
         CategoryID: 3,
       },
       {
-        ID: 5,
+        ID: 8,
         Name: 'Mi Note 6',
         Price: 5800,
         Quantity: 1,
@@ -99,7 +100,7 @@ export class ProductsViewComponent implements OnInit {
         CategoryID: 3,
       },
       {
-        ID: 6,
+        ID: 9,
         Name: 'Mi Note 7',
         Price: 3900,
         Quantity: 0,
@@ -110,21 +111,36 @@ export class ProductsViewComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  calcTotalPrice(item: any, itemCount: any) {
-    this.totalOrderPrice += +item.Price * +itemCount;
-    this.totalPriceChanged.emit(this.totalOrderPrice);
-    for (let i = 0; i < itemCount; i++) {
-      this.UserCartItems.push(item);
+
+  increase(inputVal: any, product: Product) {
+    this.productNeededCount = +inputVal.value;
+    if (product.Quantity) {
+      product.Quantity--;
+      inputVal.value++;
+    } else {
+      alert('Not Enough Quantity');
     }
 
-    console.log(this.UserCartItems);
-    this.shoppingCartItems.emit(this.UserCartItems);
+    this.addItemToshoppingCartItems.emit({
+      productID: product.ID,
+      productName: product.Name,
+      unitPrice: product.Price,
+      selectedQuantity: inputVal.value,
+      productImg: product.ImgURL,
+    });
+  }
+  decrease(inputVal: any, product: Product) {
+    if (inputVal.value > 0) {
+      product.Quantity++;
+      inputVal.value--;
+    }
 
-    if (item.Quantity < itemCount) {
-      alert('There is not enoght Quantity');
-    }
-    if (item.Quantity >= itemCount) {
-      item.Quantity -= itemCount;
-    }
+    this.addItemToshoppingCartItems.emit({
+      productID: product.ID,
+      productName: product.Name,
+      unitPrice: product.Price,
+      selectedQuantity: inputVal.value,
+      productImg: product.ImgURL,
+    });
   }
 }

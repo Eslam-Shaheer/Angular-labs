@@ -1,10 +1,8 @@
-<p class="card-text"><span class="text-info">Total Price: </span>{{totalOrderPrice |currencyTransform
-    |currency: "EGP":"symbol"}}</p>
 <div class=" py-5 d-flex flex-wrap justify-content-evenly">
 
     <div [hidden]="show" *ngFor="let product of selectedCategory()" style="width: 15rem;">
-        <div *ngIf="product.Quantity!=0" class="card my-3 " appRounded
-            [ngClass]="product.Quantity==1?'bg-warning':'bg-white'">
+        <div class="card my-3 " appRounded
+            [ngClass]="{'bg-warning': product.Quantity == 1 , 'opacity-25 ' :  product.Quantity == 0 }">
             <img class="card-img-top mx-3" src={{product?.ImgURL}} alt="Card image cap"
                 style="width:13rem; height:15rem">
             <div class="card-body">
@@ -16,14 +14,17 @@
                 </p>
                 <p class="card-text"><span class="text-info">Category ID: </span> {{product?.CategoryID}}</p>
                 <div class="form-outline my-2">
-                    <label class="form-label text-info" for="typeNumber">Quantity Needed:</label>
 
-                    <input type="number" id="typeNumber" min="0" class="form-control" #boughtCount />
-
-
+                    <div class="form-control">
+                        <label class="form-label text-info" for="typeNumber">Quantity Needed:</label>
+                        <div class="d-flex justify-content-between my-2">
+                            <button class="btn btn-info" (click)="increase(boughtCount,product)">+</button>
+                            <button class="btn btn-info" (click)="decrease(boughtCount,product)">-</button>
+                        </div>
+                        <input type="number" id="typeNumber" min="0" class="form-control" #boughtCount />
+                    </div>
                 </div>
-                <a class="btn btn-info w-100" href="#" role="button"
-                    (click)="calcTotalPrice(product, boughtCount.value)">Buy Now
+                <a class="btn btn-info w-100" href="#" role="button">Buy Now
                 </a>
             </div>
         </div>

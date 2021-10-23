@@ -19,16 +19,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    <p class="card-text"><span class="text-info">Total Price: </span> {{totalPrice
+                        |currencyTransform
+                        |currency: "EGP":"symbol"}}</p>
+                    <p class="card-text"><span class="text-info">Total Price With 14% Tax: </span> {{totalPriceWithTax
+                        |currencyTransform
+                        |currency: "EGP":"symbol"}}</p>
                     <div class=" py-5 d-flex flex-wrap justify-content-evenly">
                         <div *ngFor="let product of cartItems" style="width: 10rem;">
-                            <div *ngIf="product.Quantity!=0" class="card my-3 " appRounded>
-                                <img class="card-img-top " src={{product?.ImgURL}} alt="Card image cap"
+                            <div *ngIf="product.selectedQuantity!=0" class="card my-3 " appRounded>
+                                <img class="card-img-top " src={{product.productImg}} alt="Card image cap"
                                     style="width:10rem; height:10rem">
                                 <div class="card-body">
-                                    <p class="card-text"><span class="text-info">Name: </span> {{product?.Name}}</p>
-                                    <p class="card-text"><span class="text-info">Price: </span>{{product.Price
+                                    <p class="card-text"><span class="text-info">Name: </span> {{product.productName}}
+                                    </p>
+                                    <p class="card-text"><span class="text-info">Price: </span>{{product.unitPrice
                                         |currencyTransform
                                         |currency: "EGP":"symbol"}}</p>
+                                    <p class="card-text"><span class="text-info">Quantity: </span>
+                                        {{product.selectedQuantity}}</p>
                                 </div>
                             </div>
                         </div>
@@ -43,8 +52,8 @@
     </div>
 
 
-    <app-products-view [sentCatIDFrmMaster]="selectedCategory" (shoppingCartItems)="onShoppingCartChanged($event)"
-        (totalPriceChanged)="onTotalPriceChanged($event)">
+    <app-products-view [sentCatIDFrmMaster]="selectedCategory"
+        (addItemToshoppingCartItems)="addItemToshoppingCartItems($event)">
     </app-products-view>
 
 

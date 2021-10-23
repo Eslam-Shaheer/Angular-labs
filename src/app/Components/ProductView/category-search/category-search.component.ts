@@ -8,8 +8,10 @@ import { Category } from 'src/app/Models/category';
 export class CategorySearchComponent implements OnInit {
   categoriesList: Category[] = [];
   selectedCategory: number = 0;
-  totalPriceForBoughtItems: number = 0;
   cartItems: any[] = [];
+
+  totalPrice: number = 0;
+  totalPriceWithTax: number = 0;
   constructor() {
     this.categoriesList = [
       {
@@ -28,11 +30,21 @@ export class CategorySearchComponent implements OnInit {
   }
 
   ngOnInit(): void {}
-  onTotalPriceChanged(OrderTotalPrice: number) {
-    this.totalPriceForBoughtItems = OrderTotalPrice;
-  }
-  onShoppingCartChanged(UserCartItems: any) {
-    this.cartItems = UserCartItems;
-    console.log(this.cartItems);
+
+  addItemToshoppingCartItems(UserCartItems: any) {
+    this.totalPrice = 0;
+    this.totalPriceWithTax = 0;
+    let newItem = this.cartItems.find(
+      (item, index) => UserCartItems.productID == item.productID
+    );
+    if (newItem) {
+      newItem.selectedQuantity = UserCartItems.selectedQuantity;
+    } else {
+      this.cartItems.push(UserCartItems);
+    }
+    for (let i of this.cartItems) {
+      this.totalPrice += i.unitPrice * i.selectedQuantity;
+      this.totalPriceWithTax = this.totalPrice * 1.14;
+    }
   }
 }
