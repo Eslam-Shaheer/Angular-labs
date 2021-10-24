@@ -1,8 +1,7 @@
 <div class="container my-5">
     <div class="d-flex align-items-center">
         <select class="form-select" name="categoris" aria-label="Default select example" [(ngModel)]="selectedCategory">
-            <option *ngFor="let category of categoriesList" [value]="category.ID">
-                {{category.Name}}</option>
+            <option *ngFor="let category of categoriesList" [value]="category.ID">{{category.Name}}</option>
         </select>
         <button type="button" class="btn btn-light ms-3 p-1 " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <img style="width:30px"
@@ -20,24 +19,28 @@
                 </div>
                 <div class="modal-body">
                     <p class="card-text"><span class="text-info">Total Price: </span> {{totalPrice
-                        |currencyTransform
+
                         |currency: "EGP":"symbol"}}</p>
                     <p class="card-text"><span class="text-info">Total Price With 14% Tax: </span> {{totalPriceWithTax
-                        |currencyTransform
+
                         |currency: "EGP":"symbol"}}</p>
                     <div class=" py-5 d-flex flex-wrap justify-content-evenly">
-                        <div *ngFor="let product of cartItems" style="width: 10rem;">
-                            <div *ngIf="product.selectedQuantity!=0" class="card my-3 " appRounded>
+                        <div *ngFor="let product of cartItems">
+                            <div class="card my-3 d-flex flex-row" appRounded>
                                 <img class="card-img-top " src={{product.productImg}} alt="Card image cap"
                                     style="width:10rem; height:10rem">
                                 <div class="card-body">
                                     <p class="card-text"><span class="text-info">Name: </span> {{product.productName}}
                                     </p>
                                     <p class="card-text"><span class="text-info">Price: </span>{{product.unitPrice
-                                        |currencyTransform
                                         |currency: "EGP":"symbol"}}</p>
                                     <p class="card-text"><span class="text-info">Quantity: </span>
                                         {{product.selectedQuantity}}</p>
+                                    <p class="card-text"><span class="text-info">Total Price: </span>
+                                        {{product.selectedQuantity*product.unitPrice
+                                        |currency: "EGP":"symbol"}}</p>
+                                    <input type="number" value="{{product.selectedQuantity}}" id="typeNumber" min="0"
+                                        class="form-control" #boughtCount (change)="calc(boughtCount,product)" />
                                 </div>
                             </div>
                         </div>

@@ -1,18 +1,20 @@
-<div class=" py-5 d-flex flex-wrap justify-content-evenly">
+<div class=" py-5 d-flex flex-column justify-content-evenly">
 
-    <div [hidden]="show" *ngFor="let product of selectedCategory()" style="width: 15rem;">
-        <div class="card my-3 " appRounded
+    <div [hidden]="show" *ngFor="let product of selectedCategory()">
+        <div class="card my-3 d-flex flex-row" appRounded
             [ngClass]="{'bg-warning': product.Quantity == 1 , 'opacity-25 ' :  product.Quantity == 0 }">
             <img class="card-img-top mx-3" src={{product?.ImgURL}} alt="Card image cap"
                 style="width:13rem; height:15rem">
-            <div class="card-body">
-                <p class="card-text"><span class="text-info">Name: </span> {{product?.Name}}</p>
-                <p class="card-text"><span class="text-info">Price: </span>{{product.Price |currencyTransform
-                    |currency: "EGP":"symbol"}}</p>
-                <p class="card-text"><span class="text-info">Available Quantity: </span> {{product?.Quantity}}</p>
-                <p class="card-text"><span class="text-info">Puplish Date: </span>{{myDate | date: 'dd-MM-yyyy'}}
-                </p>
-                <p class="card-text"><span class="text-info">Category ID: </span> {{product?.CategoryID}}</p>
+            <div class="card-body d-flex justify-content-between">
+                <div>
+                    <p class="card-text"><span class="text-info">Name: </span> {{product?.Name}}</p>
+                    <p class="card-text"><span class="text-info">Price: </span>{{product.Price
+                        |currency: "EGP":"symbol"}}</p>
+                    <p class="card-text"><span class="text-info">Available Quantity: </span> {{product?.Quantity}}</p>
+                    <p class="card-text"><span class="text-info">Puplish Date: </span>{{myDate | date: 'dd-MM-yyyy'}}
+                    </p>
+                    <p class="card-text"><span class="text-info">Category ID: </span> {{product?.CategoryID}}</p>
+                </div>
                 <div class="form-outline my-2">
 
                     <div class="form-control">
@@ -21,11 +23,11 @@
                             <button class="btn btn-info" (click)="increase(boughtCount,product)">+</button>
                             <button class="btn btn-info" (click)="decrease(boughtCount,product)">-</button>
                         </div>
-                        <input type="number" id="typeNumber" min="0" class="form-control" #boughtCount />
+                        <input type="text" value=0 id="typeNumber" min="0" class="form-control" #boughtCount />
+                        <a class="btn btn-info w-100 my-2" href="#" role="button">Add to cart </a>
                     </div>
                 </div>
-                <a class="btn btn-info w-100" href="#" role="button">Buy Now
-                </a>
+
             </div>
         </div>
     </div>

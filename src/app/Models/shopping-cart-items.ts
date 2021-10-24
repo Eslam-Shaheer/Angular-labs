@@ -4,4 +4,5 @@ export interface ShoppingCartItems {
   unitPrice: number;
   selectedQuantity: number;
   productImg: string;
+  productQuantity: number;
 }

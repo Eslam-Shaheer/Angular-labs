@@ -113,7 +113,6 @@ export class ProductsViewComponent implements OnInit {
   ngOnInit(): void {}
 
   increase(inputVal: any, product: Product) {
-    this.productNeededCount = +inputVal.value;
     if (product.Quantity) {
       product.Quantity--;
       inputVal.value++;
@@ -127,6 +126,7 @@ export class ProductsViewComponent implements OnInit {
       unitPrice: product.Price,
       selectedQuantity: inputVal.value,
       productImg: product.ImgURL,
+      productQuantity: product.Quantity,
     });
   }
   decrease(inputVal: any, product: Product) {
@@ -141,6 +141,7 @@ export class ProductsViewComponent implements OnInit {
       unitPrice: product.Price,
       selectedQuantity: inputVal.value,
       productImg: product.ImgURL,
+      productQuantity: product.Quantity,
     });
   }
 }

@@ -9,7 +9,7 @@ export class CategorySearchComponent implements OnInit {
   categoriesList: Category[] = [];
   selectedCategory: number = 0;
   cartItems: any[] = [];
-
+  a: number = 0;
   totalPrice: number = 0;
   totalPriceWithTax: number = 0;
   constructor() {
@@ -35,16 +35,32 @@ export class CategorySearchComponent implements OnInit {
     this.totalPrice = 0;
     this.totalPriceWithTax = 0;
     let newItem = this.cartItems.find(
-      (item, index) => UserCartItems.productID == item.productID
+      (item) => UserCartItems.productID == item.productID
     );
+
     if (newItem) {
       newItem.selectedQuantity = UserCartItems.selectedQuantity;
+      if (newItem.selectedQuantity == 0) {
+        this.cartItems.splice(newItem, 1);
+      }
     } else {
-      this.cartItems.push(UserCartItems);
+      if (UserCartItems.selectedQuantity != 0) {
+        this.cartItems.push(UserCartItems);
+      }
     }
+
     for (let i of this.cartItems) {
       this.totalPrice += i.unitPrice * i.selectedQuantity;
       this.totalPriceWithTax = this.totalPrice * 1.14;
+    }
+  }
+  calc(boughtCount: any, Product: any) {
+    if (boughtCount.value > Product.selectedQuantity) {
+      Product.selectedQuantity = boughtCount.value;
+      this.totalPrice += Product.unitPrice;
+    } else {
+      this.totalPrice -= Product.unitPrice;
+      Product.selectedQuantity = boughtCount.value;
     }
   }
 }

@@ -14,10 +14,6 @@ export class HeaderComponent implements OnInit {
     establishDate: new Date(),
   };
   greating: string = '';
-  displayName() {
-    console.log(this.cstName);
-    this.greating = `Welcome Mr ${this.cstName}`;
-  }
 
   constructor() {}
 
