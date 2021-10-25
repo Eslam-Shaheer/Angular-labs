@@ -16,6 +16,9 @@ import { ProductsViewComponent } from './Components/ProductView/products-view/pr
 import { CategorySearchComponent } from './Components/ProductView/category-search/category-search.component';
 import { CreditInfoPipe } from './Pipes/credit-info.pipe';
 import { PersonalInfoPipe } from './Pipes/personal-info.pipe';
+import { AboutComponent } from './Components/about/about.component';
+import { ContactComponent } from './Components/contact/contact.component';
+import { NotfoundComponent } from './Components/notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { PersonalInfoPipe } from './Pipes/personal-info.pipe';
     SearchComponent,
     ProductsViewComponent,
     CategorySearchComponent,
+    AboutComponent,
+    ContactComponent,
+    NotfoundComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, CommonModule],
   providers: [],

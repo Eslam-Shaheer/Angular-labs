@@ -1,6 +1,6 @@
 <div class=" py-5 d-flex flex-column justify-content-evenly">
 
-    <div [hidden]="show" *ngFor="let product of selectedCategory()">
+    <div [hidden]="show" *ngFor="let product of prdoductsList">
         <div class="card my-3 d-flex flex-row" appRounded
             [ngClass]="{'bg-warning': product.Quantity == 1 , 'opacity-25 ' :  product.Quantity == 0 }">
             <img class="card-img-top mx-3" src={{product?.ImgURL}} alt="Card image cap"

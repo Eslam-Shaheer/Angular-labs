@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Category } from 'src/app/Models/category';
+import { ProductService } from 'src/app/Services/product.service';
+
 @Component({
   selector: 'app-category-search',
   templateUrl: './category-search.component.html',
   styleUrls: ['./category-search.component.scss'],
 })
-export class CategorySearchComponent implements OnInit {
+export class CategorySearchComponent implements OnInit, OnChanges {
   categoriesList: Category[] = [];
   selectedCategory: number = 0;
   cartItems: any[] = [];
   a: number = 0;
   totalPrice: number = 0;
   totalPriceWithTax: number = 0;
-  constructor() {
+  constructor(private productService: ProductService) {
     this.categoriesList = [
       {
         ID: 1,
@@ -28,6 +30,7 @@ export class CategorySearchComponent implements OnInit {
       },
     ];
   }
+  ngOnChanges(changes: SimpleChanges): void {}
 
   ngOnInit(): void {}
 
@@ -58,9 +61,11 @@ export class CategorySearchComponent implements OnInit {
     if (boughtCount.value > Product.selectedQuantity) {
       Product.selectedQuantity = boughtCount.value;
       this.totalPrice += Product.unitPrice;
+      this.totalPriceWithTax += Product.unitPrice * 1.14;
     } else {
       this.totalPrice -= Product.unitPrice;
       Product.selectedQuantity = boughtCount.value;
+      this.totalPriceWithTax -= Product.unitPrice * 1.14;
     }
   }
 }

@@ -1,7 +1,7 @@
 <div class="container-fluid ">
     <div class="row">
         <aside class="mx-0 col-3 my-5  position-relative">
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light position-fixed " style="width: 280px;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light " style="width: 280px;">
                 <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
                     <svg class="bi me-2" width="40" height="32">
                         <use xlink:href="#bootstrap" />
@@ -46,7 +46,7 @@
                 <div [hidden]='Pinfo'>
                     <div class="alert py-2 alert-info  my-2" role="alert">
 
-                        {{ personalInformation | personalInfo: 'YY' }}
+                        {{ personalInformation | personalInfo: 'FullDate' }}
                     </div>
 
                 </div>
@@ -64,7 +64,8 @@
 
         </aside>
         <section class="col-8">
-            <app-category-search></app-category-search>
+            <router-outlet></router-outlet>
+
         </section>
     </div>
 </div>
