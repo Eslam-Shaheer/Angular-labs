@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Category } from 'src/app/Models/category';
 import { ProductService } from 'src/app/Services/product.service';
 
@@ -14,7 +15,7 @@ export class CategorySearchComponent implements OnInit, OnChanges {
   a: number = 0;
   totalPrice: number = 0;
   totalPriceWithTax: number = 0;
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private router: Router) {
     this.categoriesList = [
       {
         ID: 1,
@@ -56,6 +57,9 @@ export class CategorySearchComponent implements OnInit, OnChanges {
       this.totalPrice += i.unitPrice * i.selectedQuantity;
       this.totalPriceWithTax = this.totalPrice * 1.14;
     }
+  }
+  details(id: number) {
+    this.router.navigate(['/product/', id]);
   }
   calc(boughtCount: any, Product: any) {
     if (boughtCount.value > Product.selectedQuantity) {

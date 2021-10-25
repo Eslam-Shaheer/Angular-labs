@@ -19,6 +19,7 @@ import { PersonalInfoPipe } from './Pipes/personal-info.pipe';
 import { AboutComponent } from './Components/about/about.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { NotfoundComponent } from './Components/notfound/notfound.component';
+import { ProductComponent } from './Components/product/product.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { NotfoundComponent } from './Components/notfound/notfound.component';
     AboutComponent,
     ContactComponent,
     NotfoundComponent,
+    ProductComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, CommonModule],
   providers: [],
