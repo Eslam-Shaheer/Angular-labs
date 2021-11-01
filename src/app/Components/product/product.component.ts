@@ -22,7 +22,11 @@ export class ProductComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(
       (params) => {
         this.productID = Number(params.get('id'));
-        this.product = this.productService.getProductByID(this.productID);
+        this.productService
+          .getProductByID(this.productID)
+          .subscribe((product) => {
+            this.product = product;
+          });
       },
       (err) => {
         console.log(err);

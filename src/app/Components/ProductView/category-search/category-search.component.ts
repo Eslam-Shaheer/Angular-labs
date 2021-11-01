@@ -1,7 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/Models/category';
 import { ProductService } from 'src/app/Services/product.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-category-search',
@@ -15,25 +17,18 @@ export class CategorySearchComponent implements OnInit, OnChanges {
   a: number = 0;
   totalPrice: number = 0;
   totalPriceWithTax: number = 0;
-  constructor(private productService: ProductService, private router: Router) {
-    this.categoriesList = [
-      {
-        ID: 1,
-        Name: 'Iphone',
-      },
-      {
-        ID: 2,
-        Name: 'Xiaomi',
-      },
-      {
-        ID: 3,
-        Name: 'Huwaei',
-      },
-    ];
-  }
+  constructor(
+    private productService: ProductService,
+    private router: Router,
+    private http: HttpClient
+  ) {}
   ngOnChanges(changes: SimpleChanges): void {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productService.getAllCategories().subscribe((Categories) => {
+      this.categoriesList = Categories;
+    });
+  }
 
   addItemToshoppingCartItems(UserCartItems: any) {
     this.totalPrice = 0;

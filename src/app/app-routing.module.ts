@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './Components/about/about.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { HomeComponent } from './Components/home/home.component';
+import { NewproductComponent } from './Components/newproduct/newproduct.component';
 import { NotfoundComponent } from './Components/notfound/notfound.component';
 import { ProductComponent } from './Components/product/product.component';
 import { CategorySearchComponent } from './Components/ProductView/category-search/category-search.component';
+import { ReqresproductComponent } from './Components/reqresproduct/reqresproduct.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'product/:id', component: ProductComponent },
+  { path: 'admin/insertproduct', component: NewproductComponent },
+  { path: 'reqresproduct', component: ReqresproductComponent },
   {
     path: 'user',
     loadChildren: () =>

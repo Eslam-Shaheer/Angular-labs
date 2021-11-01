@@ -3,10 +3,12 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/Models/product';
 import { ShoppingCartItems } from 'src/app/Models/shopping-cart-items';
 import { ProductService } from 'src/app/Services/product.service';
@@ -16,7 +18,7 @@ import { ProductService } from 'src/app/Services/product.service';
   templateUrl: './products-view.component.html',
   styleUrls: ['./products-view.component.scss'],
 })
-export class ProductsViewComponent implements OnInit, OnChanges {
+export class ProductsViewComponent implements OnInit, OnChanges, OnDestroy {
   myDate: Date = new Date();
   show: boolean = false;
   prdoductsList: Product[] = [];
@@ -26,7 +28,7 @@ export class ProductsViewComponent implements OnInit, OnChanges {
   UserCartItems: Product[] = [];
   @Output() addItemToshoppingCartItems: EventEmitter<ShoppingCartItems> =
     new EventEmitter<ShoppingCartItems>();
-
+  subscriptions: Subscription[] = [];
   productNeededCount: number = 0;
 
   showMessage(Product: any): void {
@@ -35,14 +37,28 @@ export class ProductsViewComponent implements OnInit, OnChanges {
     // this.show = !this.show;
   }
   constructor(private productService: ProductService) {}
+  ngOnDestroy(): void {
+    for (let sub of this.subscriptions) {
+      sub.unsubscribe();
+    }
+  }
   ngOnChanges(changes: SimpleChanges): void {
     if (this.sentCatIDFrmMaster) {
-      this.prdoductsList = this.productService.getProductsByCatID(
-        this.sentCatIDFrmMaster
-      );
+      let subscription: Subscription = this.productService
+        .getProductsByCatID(this.sentCatIDFrmMaster)
+        .subscribe((products) => {
+          this.prdoductsList = products;
+        });
+      this.subscriptions.push(subscription);
     } else {
-      this.prdoductsList = this.productService.getAllProducts();
+      let subscription: Subscription = this.productService
+        .getAllProducts()
+        .subscribe((products) => {
+          this.prdoductsList = products;
+        });
+      this.subscriptions.push(subscription);
     }
+    console.log(this.productService.getAllProducts());
   }
 
   ngOnInit(): void {}
@@ -56,7 +72,7 @@ export class ProductsViewComponent implements OnInit, OnChanges {
     }
 
     this.addItemToshoppingCartItems.emit({
-      productID: product.ID,
+      productID: product.id,
       productName: product.Name,
       unitPrice: product.Price,
       selectedQuantity: inputVal.value,
@@ -71,7 +87,7 @@ export class ProductsViewComponent implements OnInit, OnChanges {
     }
 
     this.addItemToshoppingCartItems.emit({
-      productID: product.ID,
+      productID: product.id,
       productName: product.Name,
       unitPrice: product.Price,
       selectedQuantity: inputVal.value,

@@ -1,7 +1,7 @@
 <div class="container my-5">
     <div class="d-flex align-items-center">
         <select class="form-select" name="categoris" aria-label="Default select example" [(ngModel)]="selectedCategory">
-            <option *ngFor="let category of categoriesList" [value]="category.ID">{{category.Name}}</option>
+            <option *ngFor="let category of categoriesList" [value]="category.id">{{category.Name}}</option>
         </select>
         <button type="button" class="btn btn-light ms-3 p-1 " data-bs-toggle="modal" data-bs-target="#staticBackdrop">
             <img style="width:30px"

@@ -6,7 +6,7 @@ import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { HomeComponent } from './Components/home/home.component';
 import { FormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { HighlightDirective } from './Components/Directive/highlight.directive';
 import { RoundedDirective } from './Directives/rounded.directive';
@@ -20,6 +20,8 @@ import { AboutComponent } from './Components/about/about.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { NotfoundComponent } from './Components/notfound/notfound.component';
 import { ProductComponent } from './Components/product/product.component';
+import { NewproductComponent } from './Components/newproduct/newproduct.component';
+import { ReqresproductComponent } from './Components/reqresproduct/reqresproduct.component';
 
 @NgModule({
   declarations: [
@@ -39,8 +41,16 @@ import { ProductComponent } from './Components/product/product.component';
     ContactComponent,
     NotfoundComponent,
     ProductComponent,
+    NewproductComponent,
+    ReqresproductComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, CommonModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    CommonModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

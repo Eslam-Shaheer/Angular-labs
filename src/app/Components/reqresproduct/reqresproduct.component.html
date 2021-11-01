@@ -1,0 +1,10 @@
+<div class="card my-5" *ngFor="let item of productList">
+    <div class="card-header" [style.background-color]='item.color'>
+        {{item.year}}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"> {{item.name}}</h5>
+        <p class="card-text">{{item.pantone_value}}</p>
+
+    </div>
+</div>
